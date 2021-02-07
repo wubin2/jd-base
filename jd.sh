@@ -113,6 +113,7 @@ function Combin_All {
   export JDSXSY_SHARECODES=$(Combin_Sub ForOtherImmortal "")
   export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh "")
   export JSMOBILEFESTIVAL_SHARECODES=$(Combin_Sub ForOtherJdMobileFestival)
+  export JDNY_SHARECODES=$(Combin_Sub ForOtherNewYearMoney "oMZeX7RK84hQB-U5Y7Qj_bkr7Owdnc2PvBOlgxkk6lookPKY" "" "")
 }
 
 ## 转换JD_BEAN_SIGN_STOP_NOTIFY或JD_BEAN_SIGN_NOTIFY_SIMPLE
