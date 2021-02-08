@@ -39,7 +39,7 @@ fi
 
 ## 更新shell脚本
 function Git_PullShell {
-  echo -e "更新shell脚本，原地址：${ShellURL}\n"
+  echo -e "更新shell脚本"
   cd ${ShellDir}
   git fetch --all
   ExitStatusShell=$?
