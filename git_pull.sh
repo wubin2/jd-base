@@ -332,7 +332,6 @@ if [ ${ExitStatusShell} -eq 0 ]; then
   echo -e "--------------------------------------------------------------\n"
   [ -f ${ScriptsDir}/package.json ] && PackageListOld=$(cat ${ScriptsDir}/package.json)
   [ -d ${ScriptsDir}/.git ] && Git_PullScripts || Git_CloneScripts
-  [ -d ${Scripts2Dir}/.git ] && Git_PullScripts2 || Git_CloneScripts2
   cp -f ${Scripts2Dir}/jd_*.js ${ScriptsDir}
 fi
 
