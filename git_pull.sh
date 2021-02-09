@@ -157,7 +157,7 @@ function Notify_Version {
   then
     if [ ! -f ${SendCount} ]; then
       echo -e "检测到配置文件config.sh.sample有更新\n\n更新日期: ${UpdateDate}\n当前版本: ${VerConf}\n新的版本: ${VerConfSample}\n更新内容: ${UpdateContent}\n如需使用新功能请对照config.sh.sample，将相关新参数手动增加到你自己的config.sh中，否则请无视本消息。\n" | tee ${ContentVersion}
-      echo -e "本消息只在该新版本配置文件更新当天发送一次，脚本地址：${ShellURL}" >> ${ContentVersion}
+      echo -e "本消息只在该新版本配置文件更新当天发送一次" >> ${ContentVersion}
       cd ${ShellDir}
       node update.js
       if [ $? -eq 0 ]; then
@@ -252,7 +252,7 @@ function Del_Cron {
     crontab -l
     echo -e "\n--------------------------------------------------------------\n"
     if [ -d ${ScriptsDir}/node_modules ]; then
-      echo -e "jd-base脚本成功删除失效的定时任务：\n\n${JsDrop}\n\n脚本地址：${ShellURL}" > ${ContentDropTask}
+      echo -e "jd-base脚本成功删除失效的定时任务：\n\n${JsDrop}\n\n" > ${ContentDropTask}
       Notify_DropTask
     fi
   fi
@@ -286,7 +286,7 @@ function Add_Cron {
       crontab -l
       echo -e "\n--------------------------------------------------------------\n"
       if [ -d ${ScriptsDir}/node_modules ]; then
-        echo -e "jd-base脚本成功添加新的定时任务：\n\n${JsAdd}\n\n脚本地址：${ShellURL}" > ${ContentNewTask}
+        echo -e "jd-base脚本成功添加新的定时任务：\n\n${JsAdd}\n\n" > ${ContentNewTask}
         Notify_NewTask
       fi
     else
