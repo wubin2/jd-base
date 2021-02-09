@@ -1,5 +1,5 @@
-## Version: v3.14.1
-## Date: 2021-01-16
+## Version: v3.15.1
+## Date: 2021-02-9
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 ## 如需更新，请参考WIKI（https://github.com/EvineDeng/jd-base/wiki）中"如何更新配置文件"部分的操作说明，进行智能比对后修改。
@@ -318,6 +318,22 @@ ForOtherCash4=""
 ForOtherCash5=""
 ForOtherCash6=""
 
+################################## 定义压岁钱互助（选填） ##################################
+MyNewYearMoney1=""
+MyNewYearMoney2=""
+MyNewYearMoney3=""
+MyNewYearMoney4=""
+MyNewYearMoney5=""
+MyNewYearMoney6=""
+MyNewYearMoneyA=""
+MyNewYearMoneyB=""
+
+ForOtherNewYearMoney1=""
+ForOtherNewYearMoney2=""
+ForOtherNewYearMoney3=""
+ForOtherNewYearMoney4=""
+ForOtherNewYearMoney5=""
+ForOtherNewYearMoney6=""
 
 ################################## 定义东东超市蓝币兑换数量（选填） ##################################
 ## 东东超市蓝币兑换，可用值包括：
