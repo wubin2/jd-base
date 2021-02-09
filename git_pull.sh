@@ -31,9 +31,6 @@ WhichDep=$(grep "/jd-base" "${ShellDir}/.git/config")
 if [[ ${WhichDep} == *github* ]]; then
   ScriptsURL=https://gitee.com/shuye72/MyActions
   ShellURL=https://hub.fastgit.org/shuyeshuye/jd-base 
-else
-  ScriptsURL=https://gitee.com/shuye72/MyActions
-  ShellURL=https://hub.fastgit.org/shuyeshuye/jd-base
 fi
 
 ## 更新shell脚本
