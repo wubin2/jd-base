@@ -63,7 +63,7 @@ function Update_Cron {
 
 ## 克隆scripts
 function Git_CloneScripts {
-  echo -e "克隆脚本，原地址：${ScriptsURL}\n"
+  echo -e "克隆脚本\n"
   git clone -b main ${ScriptsURL} ${ScriptsDir}
   ExitStatusScripts=$?
   echo
@@ -71,7 +71,7 @@ function Git_CloneScripts {
 
 ## 更新scripts
 function Git_PullScripts {
-  echo -e "更新脚本，原地址：${ScriptsURL}\n"
+  echo -e "更新脚本\n"
   cd ${ScriptsDir}
   git fetch --all
   ExitStatusScripts=$?
