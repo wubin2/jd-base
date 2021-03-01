@@ -1,6 +1,6 @@
-## Version: v3.27.3
-## Date: 2021-02-24
-## Update Content: 宠汪汪兑换解除注释，延迟运行脚本默认去除 有需要自己加延迟
+## Version: v3.28.3
+## Date: 2021-03-01
+## Update Content: 新增自动替换互助码配置开关，具体用法请查看543行至552行，默认关闭有需要可以打开同时移除了过期的活动互助码调整了京东图书互助码的位置有利于一起自动替换
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 ## 如需更新，请进行智能比对后修改。
@@ -310,25 +310,6 @@ TokenJxnc5=''
 TokenJxnc6=''
 
 
-################################## 定义口袋书店互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyBookShop1=""
-MyBookShop2=""
-MyBookShop3=""
-MyBookShop4=""
-MyBookShop5=""
-MyBookShop6=""
-MyBookShopA=""
-MyBookShopB=""
-
-ForOtherBookShop1=""
-ForOtherBookShop2=""
-ForOtherBookShop3=""
-ForOtherBookShop4=""
-ForOtherBookShop5=""
-ForOtherBookShop6=""
-
-
 ################################## 定义签到领现金互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyCash1=""
@@ -366,25 +347,23 @@ ForOtherSgmh4=""
 ForOtherSgmh5=""
 ForOtherSgmh6=""
 
-################################## 定义京东环球国际活动互助（选填） ##################################
+################################## 定义口袋书店互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
-## 仅2021年2月11日(含)前有效
-MyGlobal1=""
-MyGlobal2=""
-MyGlobal3=""
-MyGlobal4=""
-MyGlobal5=""
-MyGlobal6=""
-MyGlobalA=""
-MyGlobalB=""
+MyBookShop1=""
+MyBookShop2=""
+MyBookShop3=""
+MyBookShop4=""
+MyBookShop5=""
+MyBookShop6=""
+MyBookShopA=""
+MyBookShopB=""
 
-ForOtherGlobal1=""
-ForOtherGlobal2=""
-ForOtherGlobal3=""
-ForOtherGlobal4=""
-ForOtherGlobal5=""
-ForOtherGlobal6=""
-
+ForOtherBookShop1=""
+ForOtherBookShop2=""
+ForOtherBookShop3=""
+ForOtherBookShop4=""
+ForOtherBookShop5=""
+ForOtherBookShop6=""
 
 ################################## 定义东东超市蓝币兑换数量（选填） ##################################
 ## 东东超市蓝币兑换，可用值包括：
@@ -561,6 +540,16 @@ export PURCHASE_SHOPS=""
 ## 我已定义好的变量，你如果想直接使用，可以参考本仓库下 git_pull.sh 文件
 EnableExtraShell=""
 
+################################## 是否需要开启自动替换配置（选填） ##################################
+## 自动替换配置默认为false,如果你想开启自动替换配置请赋值为 "true"
+## 找到 填写互助码部分 在互助码最前面和最后面 各 添加一行 # format_share_jd_code 例：
+## # format_share_jd_code
+## ################################## 定义东东农场互助（选填） ##################################
+## xxxx
+## xxx
+## format_share_jd_code
+
+export REPLACE_SHARE_CODES="false"
 
 ################################## 互助码填法示例 ##################################
 ## **互助码是填在My系列变量中的，ForOther系统变量中只要填入My系列的变量名即可，按注释中的例子拼接，以东东农场为例，如下所示。**
