@@ -100,8 +100,7 @@ function Combin_All {
   export BOOKSHOP_SHARECODES=$(Combin_Sub ForOtherBookShop "")
   export JD_CASH_SHARECODES=$(Combin_Sub ForOtherCash "" "" "")
   export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh "")
-  export JDNY_SHARECODES=$(Combin_Sub ForOtherNewYearMoney "" "" "")
-  export JDGLOBAL_SHARECODES=$(Combin_Sub ForOtherGlobal "" "" "")
+  export JDCFD_SHARECODES=$(Combin_Sub ForOtherCFD "" "" "")
 }
 
 ## 转换JD_BEAN_SIGN_STOP_NOTIFY或JD_BEAN_SIGN_NOTIFY_SIMPLE
