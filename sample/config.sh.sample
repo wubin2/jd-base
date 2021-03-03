@@ -1,6 +1,6 @@
-## Version: v3.29.3
+## Version: v3.30.3
 ## Date: 2021-03-02
-## Update Content: 新增京喜财富岛相关配置
+## Update Content: 由于docker自动替换配置文件中的互助码很多人使用方法错误导致出现了诸多问题，目前我已经调整好config.sh里面的互助码顺序以及帮你配置好了需要自动替换的范围，如若需要傻瓜式开启就行，并且在下方也保留了使用示例。依然是默认关闭状态
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 ## 如需更新，请进行智能比对后修改。
@@ -140,7 +140,7 @@ NotifyBeanSign=""
 ## 默认每个签到接口并发无延迟，如需要依次进行每个接口，请自定义延迟时间，单位为毫秒，延迟作用于每个签到接口, 如填入延迟则切换顺序签到(耗时较长)
 export JD_BEAN_STOP=""
 
-
+# format_share_jd_code
 ################################## 定义东东农场互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyFruit1=""
@@ -236,25 +236,6 @@ ForOtherJdFactory5=""
 ForOtherJdFactory6=""
 
 
-################################## 定义京东赚赚互助（选填） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyJdzz1=""
-MyJdzz2=""
-MyJdzz3=""
-MyJdzz4=""
-MyJdzz5=""
-MyJdzz6=""
-MyJdzzA=""
-MyJdzzB=""
-
-ForOtherJdzz1=""
-ForOtherJdzz2=""
-ForOtherJdzz3=""
-ForOtherJdzz4=""
-ForOtherJdzz5=""
-ForOtherJdzz6=""
-
-
 ################################## 定义疯狂的JOY互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyJoy1=""
@@ -297,19 +278,6 @@ ForOtherJxnc5=""
 ForOtherJxnc6=""
 
 
-################################## 定义京喜农场TOKEN（选填） ##################################
-## 如果某个Cookie的账号种植的是app种子，则必须填入有效的TOKEN；而种植非app种子则不需要TOKEN
-## TOKEN的形式：{"farm_jstoken":"749a90f871adsfads8ffda7bf3b1576760","timestamp":"1610165423873","phoneid":"42c7e3dadfadsfdsaac-18f0e4f4a0cf"}
-## 因TOKEN中带有双引号，因此，变量值两侧必须由一对单引号引起来
-## TOKEN如何获取请阅读以下文件的注释：https://github.com/LXK9301/jd_scripts/blob/master/jd_jxnc.js
-TokenJxnc1=''
-TokenJxnc2=''
-TokenJxnc3=''
-TokenJxnc4=''
-TokenJxnc5=''
-TokenJxnc6=''
-
-
 ################################## 定义签到领现金互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyCash1=""
@@ -346,7 +314,7 @@ ForOtherSgmh3=""
 ForOtherSgmh4=""
 ForOtherSgmh5=""
 ForOtherSgmh6=""
-
+# format_share_jd_code
 ################################## 定义口袋书店互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
 MyBookShop1=""
@@ -376,12 +344,42 @@ MyCFD6=""
 MyCFDA=""
 MyCFDB=""
 
-ForOtherBookShop1=""
-ForOtherBookShop2=""
-ForOtherBookShop3=""
-ForOtherBookShop4=""
-ForOtherBookShop5=""
-ForOtherBookShop6=""
+ForOtherCFD1=""
+ForOtherCFD2=""
+ForOtherCFD3=""
+ForOtherCFD4=""
+ForOtherCFD5=""
+ForOtherCFD6=""
+
+################################## 定义京喜农场TOKEN（选填） ##################################
+## 如果某个Cookie的账号种植的是app种子，则必须填入有效的TOKEN；而种植非app种子则不需要TOKEN
+## TOKEN的形式：{"farm_jstoken":"749a90f871adsfads8ffda7bf3b1576760","timestamp":"1610165423873","phoneid":"42c7e3dadfadsfdsaac-18f0e4f4a0cf"}
+## 因TOKEN中带有双引号，因此，变量值两侧必须由一对单引号引起来
+## TOKEN如何获取请阅读以下文件的注释：https://github.com/LXK9301/jd_scripts/blob/master/jd_jxnc.js
+TokenJxnc1=''
+TokenJxnc2=''
+TokenJxnc3=''
+TokenJxnc4=''
+TokenJxnc5=''
+TokenJxnc6=''
+
+################################## 定义京东赚赚互助（选填） ##################################
+## 具体填法及要求详见本文件最下方“互助码填法示例”
+MyJdzz1=""
+MyJdzz2=""
+MyJdzz3=""
+MyJdzz4=""
+MyJdzz5=""
+MyJdzz6=""
+MyJdzzA=""
+MyJdzzB=""
+
+ForOtherJdzz1=""
+ForOtherJdzz2=""
+ForOtherJdzz3=""
+ForOtherJdzz4=""
+ForOtherJdzz5=""
+ForOtherJdzz6=""
 
 ################################## 定义东东超市蓝币兑换数量（选填） ##################################
 ## 东东超市蓝币兑换，可用值包括：
@@ -563,16 +561,17 @@ export PURCHASE_SHOPS=""
 EnableExtraShell=""
 
 ################################## 是否需要开启自动替换配置（选填） ##################################
-## 自动替换配置默认为false,如果你想开启自动替换配置请赋值为 "true"，一旦你开启之后请删除下方的示例。
-## 找到 填写互助码部分 在互助码最前面和最后面 各 添加一行 # format_share_jd_code 例：
-##    # format_share_jd_code
+## 目前自动替换的替换范围已经帮你设置好了如需改动，请参照下方的示例进行改动，注意#(我是例子)format_share_jd_code，若使用此句请将'(我是例子)'替换为一个空格
+## 自动替换配置默认为false,如果你想开启自动替换配置请赋值为 "true"，一旦你开启之后为了避免出错请删除下方的示例并保存。
+## 找到 填写互助码部分 在互助码最前面和最后面 各 添加一行 #(我是例子)format_share_jd_code 例：
+##    #(我是例子)format_share_jd_code
 ##    ################################## 定义东东农场互助（选填） ##################################
 ##    xxxx
 ##    xxx
 ##    ################################## 定义东东工厂互助（选填） ##################################
 ##    xxxx
 ##    xxx
-##    #format_share_jd_code
+##    #(我是例子)format_share_jd_code
 
 export REPLACE_SHARE_CODES="false"
 
