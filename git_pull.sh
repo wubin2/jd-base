@@ -21,15 +21,8 @@ ContentNewTask=${ShellDir}/new_task
 ContentDropTask=${ShellDir}/drop_task
 SendCount=${ShellDir}/send_count
 isTermux=${ANDROID_RUNTIME_ROOT}${ANDROID_ROOT}
-WhichDep=$(grep "/jd-base" "${ShellDir}/.git/config")
-
-if [[ ${WhichDep} == *github* ]]; then
-  ScriptsURL=https://gitee.com/shuye72/MyActions
-  ShellURL=https://hub.fastgit.org/shuyeshuye/jd-base 
-else
-  ScriptsURL=https://gitee.com/shuye72/MyActions
-  ShellURL=https://hub.fastgit.org/shuyeshuye/jd-base
-fi
+ScriptsURL=https://gitee.com/shuye72/MyActions
+ShellURL=https://hub.fastgit.org/shuyeshuye/jd-base 
 
 ## 更新shell脚本
 function Git_PullShell {
@@ -44,19 +37,15 @@ function Git_PullShell {
 ## 每天次数随机，更新时间随机，更新秒数随机，至少6次，至多12次，大部分为8-10次，符合正态分布。
 function Update_Cron {
   if [ -f ${ListCron} ]; then
+    RanHour=$(((RANDOM % 6)+7))
+    ranH=$(((RANDOM % 6)+14))
     RanMin=$((${RANDOM} % 60))
     RanSleep=$((${RANDOM} % 56))
-    RanHourArray[0]=$((${RANDOM} % 3))
-    for ((i=1; i<14; i++)); do
-      j=$(($i - 1))
-      tmp=$((${RANDOM} % 3 + ${RanHourArray[j]} + 2))
-      [[ ${tmp} -lt 24 ]] && RanHourArray[i]=${tmp} || break
-    done
-    RanHour=${RanHourArray[0]}
-    for ((i=1; i<${#RanHourArray[*]}; i++)); do
-      RanHour="${RanHour},${RanHourArray[i]}"
-    done
-    perl -i -pe "s|.+(bash git_pull.+)|${RanMin} ${RanHour} \* \* \* sleep ${RanSleep} && \1|" ${ListCron}
+    H="${RanHour},${ranH}"
+    #git_pull随机cron
+    perl -i -pe "s|.+(bash git_pull.+)|${RanMin} ${H} \* \* \* sleep ${RanSleep} && \1|" ${ListCron}
+    #美丽研究院分随机cron
+    perl -i -pe "s|1 7,12(.+jd_beauty\W*.*)|${ranH} 7,12\1|" ${ListCron}
     crontab ${ListCron}
   fi
 }
@@ -90,8 +79,8 @@ function Count_UserSum {
   done
 }
 
-## 把config.sh中提供的所有账户的PIN附加在jd_joy_run.js中，让各账户相互进行宠汪汪赛跑助力
-## 你的账号将按Cookie顺序被优先助力，助力完成再助力我的账号和lxk0301大佬的账号
+# 把config.sh中提供的所有账户的PIN附加在jd_joy_run.js中，让各账户相互进行宠汪汪赛跑助力
+# 你的账号将按Cookie顺序被优先助力，助力完成再助力我的账号和lxk0301大佬的账号
 function Change_JoyRunPins {
   j=${UserSum}
   PinALL=""
@@ -333,7 +322,8 @@ then
 else
   echo -e "\nshell脚本更新失败，请检查原因后再次运行git_pull.sh，或等待定时任务自动再次运行git_pull.sh...\n"
 fi
-
+## 更新crontab
+[[ $(date "+%-H") -le 2 ]] && Update_Cron
 ## 克隆或更新js脚本
 if [ ${ExitStatusShell} -eq 0 ]; then
   echo -e "--------------------------------------------------------------\n"
