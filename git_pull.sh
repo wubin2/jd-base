@@ -46,6 +46,8 @@ function Update_Cron {
     perl -i -pe "s|.+(bash git_pull.+)|${RanMin} ${H} \* \* \* sleep ${RanSleep} && \1|" ${ListCron}
     #美丽研究院分随机cron
     perl -i -pe "s|1 7,12(.+jd_beauty\W*.*)|${ranH} 7,12\1|" ${ListCron}
+    #修复joy_run错误cron
+    perl -i -pe "s|18 11,14(.+jd_joy_run\W*.*)|${RanHour} 9-20/2\1|" ${ListCron}
     crontab ${ListCron}
   fi
 }
@@ -67,7 +69,6 @@ function Git_PullScripts {
   git reset --hard origin/main
   echo
 }
-
 ## 用户数量UserSum
 function Count_UserSum {
   i=1
@@ -93,7 +94,7 @@ function Change_JoyRunPins {
     PinALL="${PinTempFormat},${PinALL}"
     let j--
   done
-  PinEvine="104720238-540078,15905303986_p,丶呐喊丶丶,残雪秋影,jd_448b0c4918e92,jd_53c6a078fee20"
+  PinEvine="104720238-540078,15905303986_p,丶呐喊丶丶,残雪秋影,jd_448b0c4918e92"
   PinALL="${PinALL}${PinEvine}"
   perl -i -pe "{s|(let invite_pins = \[\")(.+\"\];?)|\1${PinALL}\2|; s|(let run_pins = \[\")(.+\"\];?)|\1${PinALL}\2|}" ${ScriptsDir}/jd_joy_run.js
 }
@@ -272,7 +273,7 @@ function Add_Cron {
       then
         echo "4 0,9 * * * bash ${ShellJd} ${Cron}" >> ${ListCron}
       else
-        cat ${ListCronLxk} | grep -E "\/${Cron}\." | perl -pe "s|(^.+)node */scripts/(j[drx]_\w+)\.js.+|\1bash ${ShellJd} \2|" >> ${ListCron}
+        cat ${ListCronLxk}| grep -E "\/${Cron}\." | perl -pe "s|(^.+)node */scripts/(j[drx]_\w+)\.js.+|\1bash ${ShellJd} \2|" >> ${ListCron}
       fi
     done
 
@@ -283,13 +284,13 @@ function Add_Cron {
       crontab -l
       echo -e "\n--------------------------------------------------------------\n"
       if [ -d ${ScriptsDir}/node_modules ]; then
-        echo -e "jd-base脚本成功添加新的定时任务：\n\n${JsAdd}\n\n" > ${ContentNewTask}
+        echo -e "成功添加新的定时任务：\n\n${JsAdd}" > ${ContentNewTask}
         Notify_NewTask
       fi
     else
       echo -e "添加新的定时任务出错，请手动添加...\n"
       if [ -d ${ScriptsDir}/node_modules ]; then
-        echo -e "jd-base脚本尝试自动添加以下新的定时任务出错，请手动添加：\n\n${JsAdd}" > ${ContentNewTask}
+        echo -e "尝试自动添加以下新的定时任务出错，请手动添加：\n\n${JsAdd}" > ${ContentNewTask}
         Notify_NewTask
       fi
     fi
