@@ -45,62 +45,55 @@ function Count_UserSum {
 ## 组合Cookie和互助码子程序
 function Combin_Sub {
   CombinAll=""
-  for ((i=1; i<=${UserSum}; i++)); do
-    for num in ${TempBlockCookie}; do
-      if [[ $i -eq $num ]]; then
-        continue 2
-      fi
+  if [[ ${AutoHelpOther} == true ]] && [[ $1 == ForOther* ]]; then
+
+    ForOtherAll=""
+    MyName=$(echo $1 | perl -pe "s|ForOther|My|")
+
+    for ((m=1; m<=${UserSum}; m++)); do
+      TmpA=${MyName}$m
+      TmpB=${!TmpA}
+      ForOtherAll="${ForOtherAll}@${TmpB}"
     done
-    Tmp1=$1$i
-    Tmp2=${!Tmp1}
-    case $# in
-      1)
-        CombinAll="${CombinAll}&${Tmp2}"
-        ;;
-      2)
-        CombinAll="${CombinAll}&${Tmp2}@$2"
-        ;;
-      3)
-        if [ $(($i % 2)) -eq 1 ]; then
-          CombinAll="${CombinAll}&${Tmp2}@$2"
-        else
-          CombinAll="${CombinAll}&${Tmp2}@$3"
-        fi
-        ;;
-      4)
-        case $(($i % 3)) in
-          1)
-            CombinAll="${CombinAll}&${Tmp2}@$2"
-            ;;
-          2)
-            CombinAll="${CombinAll}&${Tmp2}@$3"
-            ;;
-          0)
-            CombinAll="${CombinAll}&${Tmp2}@$4"
-            ;;
-        esac
-        ;;
-    esac
-  done
-  echo ${CombinAll} | perl -pe "{s|^&||; s|^@+||; s|&@|&|g; s|@+|@|g}"
+    
+    for ((n=1; n<=${UserSum}; n++)); do
+      for num in ${TempBlockCookie}; do
+        [[ $n -eq $num ]] && continue 2
+      done
+      CombinAll="${CombinAll}&${ForOtherAll}"
+    done
+
+  else
+    for ((i=1; i<=${UserSum}; i++)); do
+      for num in ${TempBlockCookie}; do
+        [[ $i -eq $num ]] && continue 2
+      done
+      Tmp1=$1$i
+      Tmp2=${!Tmp1}
+      CombinAll="${CombinAll}&${Tmp2}"
+    done
+  fi
+
+  echo ${CombinAll} | perl -pe "{s|^&||; s|^@+||; s|&@|&|g; s|@+&|&|g; s|@+|@|g; s|@+$||}"
 }
 
-## 组合Cookie、Token与互助码，用户自己的放在前面，我的放在后面
+## 组合Cookie、Token与互助码
 function Combin_All {
   export JD_COOKIE=$(Combin_Sub Cookie)
-  export FRUITSHARECODES=$(Combin_Sub ForOtherFruit "" "" "")
-  export PETSHARECODES=$(Combin_Sub ForOtherPet "")
-  export PLANT_BEAN_SHARECODES=$(Combin_Sub ForOtherBean "" "" "")
-  export DREAM_FACTORY_SHARE_CODES=$(Combin_Sub ForOtherDreamFactory "" "" "")
-  export DDFACTORY_SHARECODES=$(Combin_Sub ForOtherJdFactory "")
+  export FRUITSHARECODES=$(Combin_Sub ForOtherFruit)
+  export PETSHARECODES=$(Combin_Sub ForOtherPet)
+  export PLANT_BEAN_SHARECODES=$(Combin_Sub ForOtherBean)
+  export DREAM_FACTORY_SHARE_CODES=$(Combin_Sub ForOtherDreamFactory)
+  export DDFACTORY_SHARECODES=$(Combin_Sub ForOtherJdFactory)
   export JDZZ_SHARECODES=$(Combin_Sub ForOtherJdzz)
-  export JDJOY_SHARECODES=$(Combin_Sub ForOtherJoy "")
-  export JXNC_SHARECODES=$(Combin_Sub ForOtherJxnc '{"smp":"","active":"","joinnum":1}')
+  export JDJOY_SHARECODES=$(Combin_Sub ForOtherJoy)
+  export JXNC_SHARECODES=$(Combin_Sub ForOtherJxnc)
   export JXNCTOKENS=$(Combin_Sub TokenJxnc)
-  export BOOKSHOP_SHARECODES=$(Combin_Sub ForOtherBookShop "")
-  export JD_CASH_SHARECODES=$(Combin_Sub ForOtherCash "" "" "")
-  export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh "")
-  export JDCFD_SHARECODES=$(Combin_Sub ForOtherCFD "" "" "")
+  export BOOKSHOP_SHARECODES=$(Combin_Sub ForOtherBookShop)
+  export JD_CASH_SHARECODES=$(Combin_Sub ForOtherCash)
+  export JDSGMH_SHARECODES=$(Combin_Sub ForOtherSgmh)
+  export JDCFD_SHARECODES=$(Combin_Sub ForOtherCfd)
+  export JDGLOBAL_SHARECODES=$(Combin_Sub ForOtherGlobal)
 }
 
 ## 转换JD_BEAN_SIGN_STOP_NOTIFY或JD_BEAN_SIGN_NOTIFY_SIMPLE
@@ -147,7 +140,7 @@ function Help {
   echo -e "2. bash ${HelpJd} xxx now  # 无论是否设置了随机延迟，均立即运行"
   echo -e "3. bash ${HelpJd} hangup   # 重启挂机程序"
   echo -e "4. bash ${HelpJd} resetpwd # 重置控制面板用户名和密码"
-  echo -e "\n针对用法1、用法2中的\"xxx\"，无需输入后缀\".js\"，另外，如果前缀是\"jd_\"的话前缀也可以省略。"
+  echo -e "\n针对用法1、用法2中的\"xxx\"，可以不输入后缀\".js\"，另外，如果前缀是\"jd_\"的话前缀也可以省略。"
   echo -e "当前有以下脚本可以运行（仅列出以jd_、jr_、jx_开头的脚本）："
   cd ${ScriptsDir}
   for ((i=0; i<${#ListScripts[*]}; i++)); do
@@ -158,47 +151,35 @@ function Help {
 
 ## nohup
 function Run_Nohup {
-  for js in ${HangUpJs}
-  do
-    if [[ $(ps -ef | grep "${js}" | grep -v "grep") != "" ]]; then
-      ps -ef | grep "${js}" | grep -v "grep" | awk '{print $2}' | xargs kill -9
-    fi
-  done
-
-  for js in ${HangUpJs}
-  do
-    [ ! -d ${LogDir}/${js} ] && mkdir -p ${LogDir}/${js}
-    LogTime=$(date "+%Y-%m-%d-%H-%M-%S")
-    LogFile="${LogDir}/${js}/${LogTime}.log"
-    nohup node ${js}.js > ${LogFile} &
-  done
-}
-
-## pm2
-function Run_Pm2 {
-  pm2 flush
-  for js in ${HangUpJs}
-  do
-    pm2 restart ${js}.js || pm2 start ${js}.js
-  done
+  if [[ $(ps -ef | grep "${js}" | grep -v "grep") != "" ]]; then
+    ps -ef | grep "${js}" | grep -v "grep" | awk '{print $2}' | xargs kill -9
+  fi
+  [ ! -d ${LogDir}/${js} ] && mkdir -p ${LogDir}/${js}
+  LogTime=$(date "+%Y-%m-%d-%H-%M-%S")
+  LogFile="${LogDir}/${js}/${LogTime}.log"
+  nohup node ${js}.js > ${LogFile} &
 }
 
 ## 运行挂机脚本
 function Run_HangUp {
-  Import_Conf $1 && Detect_Cron && Set_Env
   HangUpJs="jd_crazy_joy_coin"
   cd ${ScriptsDir}
-  if type pm2 >/dev/null 2>&1; then
-    Run_Pm2 2>/dev/null
-  else
-    Run_Nohup >/dev/null 2>&1
-  fi
+  for js in ${HangUpJs}; do
+    Import_Conf ${js} && Set_Env
+    if type pm2 >/dev/null 2>&1; then
+      pm2 stop ${js}.js 2>/dev/null
+      pm2 flush
+      pm2 start -a ${js}.js --watch "${ScriptsDir}/${js}.js" --name="${js}"
+    else
+      Run_Nohup >/dev/null 2>&1
+    fi
+  done
 }
 
 ## 重置密码
 function Reset_Pwd {
   cp -f ${ShellDir}/sample/auth.json ${ConfigDir}/auth.json
-  echo -e "控制面板重置成功，用户名：admin，密码：shuye72\n"
+  echo -e "控制面板重置成功，用户名：admin，密码：adminadmin\n"
 }
 
 ## 运行京东脚本
@@ -231,7 +212,7 @@ function Run_Normal {
     LogFile="${LogDir}/${FileName}/${LogTime}.log"
     [ ! -d ${LogDir}/${FileName} ] && mkdir -p ${LogDir}/${FileName}
     cd ${WhichDir}
-    node ${FileName}.js | tee ${LogFile}
+    node ${FileName}.js 2>&1 | tee ${LogFile}
   else
     echo -e "\n在${ScriptsDir}、${ScriptsDir}/backUp、${ConfigDir}三个目录下均未检测到 $1 脚本的存在，请确认...\n"
     Help
