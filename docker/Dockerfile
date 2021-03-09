@@ -9,7 +9,8 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     PS1="\u@\h:\w \$ " \
     JD_DIR=/jd \
     ENABLE_HANGUP=true \
-    ENABLE_WEB_PANEL=true 
+    ENABLE_WEB_PANEL=true \
+    ENABLE_RESET_REPO_URL=true
 WORKDIR $JD_DIR
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update -f \
