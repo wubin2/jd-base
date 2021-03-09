@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-ARG JD_SHELL_URL=https://hub.fastgit.org/shuyeshuye/TEST
+ARG JD_SHELL_URL=https://hub.fastgit.org/shuyeshuye/jd-base
 ARG JD_SHELL_BRANCH=main
 ARG JD_SCRIPTS_URL=https://gitee.com/shuye72/MyActions
 ARG JD_SCRIPTS_BRANCH=main
