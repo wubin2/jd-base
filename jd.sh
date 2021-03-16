@@ -182,7 +182,7 @@ function Reset_Pwd {
   echo -e "控制面板重置成功，用户名：admin，密码：shuye72\n"
 }
 
-## 运行京东脚本
+## 运行脚本
 function Run_Normal {
   Import_Conf $1 && Detect_Cron && Set_Env
   
