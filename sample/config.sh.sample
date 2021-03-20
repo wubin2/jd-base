@@ -1,6 +1,6 @@
-## Version: v3.30.0
-## Date: 2021-03-14
-## Update Content: 增加三个通知控制变量DDQ_NOTIFY_CONTROL,CASH_NOTIFY_CONTROL和JDZZ_NOTIFY_CONTROL
+## Version: v3.31.0
+## Date: 2021-03-20
+## Update Content: 增加jd_city相关环境变量，自行对比替换
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 
