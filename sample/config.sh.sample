@@ -1,6 +1,6 @@
-## Version: v3.31.0
+## Version: v3.30.0
 ## Date: 2021-03-14
-## Update Content: 增加jd_city相关环境变量，自行对比替换
+## Update Content: 增加三个通知控制变量DDQ_NOTIFY_CONTROL,CASH_NOTIFY_CONTROL和JDZZ_NOTIFY_CONTROL
 
 ## 上面版本号中，如果第2位数字有变化，那么代表增加了新的参数，如果只有第3位数字有变化，仅代表更新了注释，没有增加新的参数，可更新可不更新
 
@@ -138,28 +138,6 @@ export JD_BEAN_STOP=""
 ## MyXxxx系列变量仍然需要填写，但ForOtherXxxx系列变量不再需要填写（填写了也无效）
 ## 如果启用了TempBlockCookie，那么只是被屏蔽的账号不助力其他账号，其他账号还是会助力被屏蔽的账号
 AutoHelpOther=""
-################################## 定义jd_City抽奖（临时） ##################################
-##自动抽奖 ，环境变量 JD_CITY_EXCHANGE ，建议活动快结束开启，默认关闭
-
-export  JD_CITY_EXCHANGE=""
-
-################################## 定义jd_City互助（临时） ##################################
-## 具体填法及要求详见本文件最下方“互助码填法示例”
-MyCity1=""
-MyCity2=""
-MyCity3=""
-MyCity4=""
-MyCity5=""
-MyCity6=""
-MyCityA=""
-MyCityB=""
-
-ForOtherCity1=""
-ForOtherCity2=""
-ForOtherCity3=""
-ForOtherCity4=""
-ForOtherCity5=""
-ForOtherCity6=""
 
 ################################## 定义jd_fruit互助（选填） ##################################
 ## 具体填法及要求详见本文件最下方“互助码填法示例”
